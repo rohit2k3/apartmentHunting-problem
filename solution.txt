@@ -1,0 +1,32 @@
+function apartmentHunting(blocks, reqs) {
+  let bestIndex = 0;
+  let minMaxDistance = Infinity;
+  for (let i = 0; i < blocks.length; i++) {
+    let maxDistance = 0;
+    for (let req of reqs) {
+      let distance = Infinity;
+      for (let j = i; j < blocks.length; j++) {
+        if (blocks[j][req]) {
+          distance = j - i;
+          break;
+        }
+      }
+      for (let j = i; j >= 0; j--) {
+        if (blocks[j][req]) {
+          distance = Math.min(distance, i - j);
+          break;
+        }
+      }
+      maxDistance = Math.max(maxDistance, distance);
+    }
+    if (maxDistance < minMaxDistance) {
+      minMaxDistance = maxDistance;
+      bestIndex = i;
+    }
+  }
+  return bestIndex;
+}
+
+// Do not edit the line below.
+exports.apartmentHunting = apartmentHunting;
+
